@@ -14,17 +14,18 @@ import 'ui/register_page/register_page.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
+    // TODO 13 wrap the material app with a multiprovider and pass down the cart item change notifier and the food item change notifier
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => CartItemChangeNotifier()),
         ChangeNotifierProvider(
-            create: (_) => FoodItemChangeNotifier(FakeApiService())),
-        ChangeNotifierProvider(create: (_) => CartItemChangeNotifier()),
+            create: (context) => FoodItemChangeNotifier(FakeApiService()))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: "/",
         routes: {
-          "/": (context) => MainMenuPage(),
+          "/": (context) => LoginPage(),
           "/login": (context) => LoginPage(),
           "/register": (context) => RegisterPage(),
           "/mainMenu": (context) => MainMenuPage(),

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:fooody/change_notifiers/food_item_change_notifier.dart';
+import 'package:fooody/services/fake_api_service.dart';
 import 'package:fooody/ui/main_menu_page/widget/CategoryTile.dart';
 import 'package:fooody/ui/main_menu_page/widget/cart_icon.dart';
 import 'package:fooody/ui/main_menu_page/widget/category_page.dart';
@@ -16,14 +17,16 @@ class MainMenuDisplay extends StatefulWidget {
 }
 
 class _MainMenuDisplayState extends State<MainMenuDisplay> {
+  //TODO 8 delete the line below this todo
+  var categories = FakeApiService().categories;
   PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
-    final _changeNotifier = Provider.of<FoodItemChangeNotifier>(context);
+    final foodItemChangeNotifier = Provider.of<FoodItemChangeNotifier>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: _changeNotifier.categories == null
+      child: categories == null
           ? Center(child: CircularProgressIndicator())
           : Stack(
               children: [
@@ -45,12 +48,12 @@ class _MainMenuDisplayState extends State<MainMenuDisplay> {
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
-                        itemCount: _changeNotifier.categories.length,
+                        itemCount: categories.length,
                         itemBuilder: (context, index) {
-                          final category = _changeNotifier.categories[index];
+                          final category = categories[index];
                           return InkWell(
                             onTap: () {
-                              _changeNotifier.selectMenuCategory(index);
+                              //TODO 12 select the current menu category by using the current index of the listViewBuilder
                               _pageController.jumpToPage(index);
                             },
                             child: CategoryTile(menuCategory: category),
@@ -63,11 +66,11 @@ class _MainMenuDisplayState extends State<MainMenuDisplay> {
                       child: PageView.builder(
                         controller: _pageController,
                         onPageChanged: (value) {
-                          _changeNotifier.selectMenuCategory(value);
+                          foodItemChangeNotifier.selectMenuCategory(value);
                         },
                         scrollDirection: Axis.horizontal,
                         pageSnapping: true,
-                        itemCount: _changeNotifier.categories.length,
+                        itemCount: foodItemChangeNotifier.categories.length,
                         itemBuilder: (context, index) {
                           return CategoryPage();
                         },

@@ -9,22 +9,21 @@ class CategoryPage extends StatelessWidget {
   const CategoryPage({Key key}) : super(key: key);
 
   _navigateToFoodItem(BuildContext context, FoodItem foodItem) {
-    Provider.of<FoodItemChangeNotifier>(context, listen: false)
-        .selectItem(foodItem);
-    Navigator.pushNamed(context, "/foodItemPage");
+    //TODO 6 call function to set food item as current food item of change notifier
+
+    //TODO 7 navigate to food item page
   }
 
   @override
   Widget build(BuildContext context) {
-    final menuCategory =
-        Provider.of<FoodItemChangeNotifier>(context).currentMenuCategory;
-    final foodList = menuCategory.foodItems;
-
+    // TODO 1
+    final foodItemChangeNotifier = Provider.of<FoodItemChangeNotifier>(context);
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 4),
       child: GridView.builder(
-        itemCount: foodList.length,
+        //TODO 4 assign foodlist length to gridview builder
+        itemCount: foodItemChangeNotifier.currentMenuCategory.foodItems.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 15,
@@ -32,14 +31,20 @@ class CategoryPage extends StatelessWidget {
           mainAxisExtent: 250,
         ),
         itemBuilder: (context, index) {
+          /*
+            TODO 5 uncomment function to assign tapped food item to change notifier and Navigate
+          */
           return GestureDetector(
-            onTap: () => _navigateToFoodItem(context, foodList[index]),
+            // onTap: () => _navigateToFoodItem(context, foodList[index]),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(12))),
-              child: FoodItemTile(foodItem: foodList[index]),
+              child: FoodItemTile(
+                foodItem:
+                    foodItemChangeNotifier.currentMenuCategory.foodItems[index],
+              ),
               width: 164,
             ),
           );

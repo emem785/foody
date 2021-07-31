@@ -6,9 +6,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO theme of just one page
     return Theme(
-      //TODO inherit global theme
       data: Theme.of(context).copyWith(
           inputDecorationTheme: InputDecorationTheme(
               border: OutlineInputBorder(gapPadding: 0.1))),

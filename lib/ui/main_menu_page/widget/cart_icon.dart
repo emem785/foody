@@ -7,27 +7,30 @@ class CartIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _itemChangeNotifier = Provider.of<CartItemChangeNotifier>(context);
     return Padding(
       padding: const EdgeInsets.only(top: 6),
       child: Stack(children: [
         Icon(Icons.shopping_cart_outlined, size: 30, color: Colors.black),
-        _itemChangeNotifier.noOfItems == 0
-            ? SizedBox()
-            : Positioned(
-                left: 13,
-                child: ClipOval(
-                  child: Container(
-                    color: Theme.of(context).primaryColor,
-                    height: 14,
-                    width: 14,
-                    child: Center(
-                      child: Text(_itemChangeNotifier.noOfItems.toString(),
-                          style: TextStyle(color: Colors.white, fontSize: 11)),
-                    ),
-                  ),
+        Positioned(
+          left: 13,
+          child: ClipOval(
+            child: Container(
+              child: Center(
+                child: Consumer<CartItemChangeNotifier>(
+                  builder: (context, cartItemChangeNotifier, child) {
+                    return Text(
+                      "${cartItemChangeNotifier.noOfItems}",
+                      style: TextStyle(color: Colors.white, fontSize: 11),
+                    );
+                  },
                 ),
-              )
+              ),
+              color: Theme.of(context).primaryColor,
+              height: 14,
+              width: 14,
+            ),
+          ),
+        ),
       ]),
     );
   }

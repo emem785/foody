@@ -8,9 +8,13 @@ class FoodItemChangeNotifier with ChangeNotifier {
   MenuCategory _menuCategory;
   List<MenuCategory> _categories;
 
+  String _token;
+
   FakeApiService fakeApiService;
 
   FoodItem get currentFoodItem => _foodItem;
+
+  String get token => _token;
 
   MenuCategory get currentMenuCategory => _menuCategory;
 

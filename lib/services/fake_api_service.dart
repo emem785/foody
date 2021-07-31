@@ -1,5 +1,6 @@
 import 'package:fooody/models/MenuCategory.dart';
 import 'package:fooody/models/food_item.dart';
+import 'package:http/http.dart' as http;
 
 const foodItems = [
   FoodItem(
@@ -46,22 +47,25 @@ const foodItems = [
   ),
 ];
 
-final categoryList = [
-  MenuCategory(
-      category: FoodCategory.Foods, svgName: "food", foodItems: foodItems),
-  MenuCategory(
-      category: FoodCategory.Bread, svgName: "bread", foodItems: foodItems.reversed.toList()),
-  MenuCategory(
-      category: FoodCategory.Snacks, svgName: "snack", foodItems: foodItems),
-  MenuCategory(
-      category: FoodCategory.Treats, svgName: "treat", foodItems: foodItems.reversed.toList()),
-  MenuCategory(
-      category: FoodCategory.Drink, svgName: "drink", foodItems: foodItems),
-];
-
 class FakeApiService {
+  final categories = [
+    MenuCategory(
+        category: FoodCategory.Foods, svgName: "food", foodItems: foodItems),
+    MenuCategory(
+        category: FoodCategory.Bread,
+        svgName: "bread",
+        foodItems: foodItems.reversed.toList()),
+    MenuCategory(
+        category: FoodCategory.Snacks, svgName: "snack", foodItems: foodItems),
+    MenuCategory(
+        category: FoodCategory.Treats,
+        svgName: "treat",
+        foodItems: foodItems.reversed.toList()),
+    MenuCategory(
+        category: FoodCategory.Drink, svgName: "drink", foodItems: foodItems),
+  ];
+
   Future<List<MenuCategory>> getFoodItems() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return categoryList;
+    return categories;
   }
 }
